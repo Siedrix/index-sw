@@ -26,7 +26,7 @@ class PostSingle extends Component {
     } catch (e) {
       this.setState({error: e.message})
     }
-
+    //debugger
     this.setState({
       post: data,
       loaded: true
