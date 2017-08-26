@@ -5,7 +5,7 @@ const {Post, Url, User} = require('models')
 
 module.exports = {
   method: 'get',
-  path: '/list',
+  path: '/',
   handler: async function (ctx) {
 
     const query = {}
