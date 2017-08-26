@@ -32,7 +32,7 @@ class NavBar extends Component {
   }
 
   render () {
-    if (this.qstate.redirect) {
+    if (this.state.redirect) {
       this.setState({redirect: false})
       return <Redirect to='/log-in' />
     }
