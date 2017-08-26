@@ -65,7 +65,7 @@ class PostCreate extends Component {
               onSubmit={(e) => { this.submitHandler(e) }}
               onError={(e) => { this.errorHandler(e) }}>
               <div>
-                <button className='button is-primary is-fullwidth' type='submit'>Sign up</button>
+                <button className='button is-primary is-fullwidth' type='submit'>Submit</button>
               </div>
             </BaseForm>
           </div>
