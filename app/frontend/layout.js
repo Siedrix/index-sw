@@ -6,6 +6,7 @@ import tree from '~core/tree'
 import api from '~core/api'
 
 import NavBar from '~components/navbar'
+import FooterBar from '~components/footerbar'
 
 class Layout extends Component {
   constructor (props) {
@@ -50,6 +51,7 @@ class Layout extends Component {
       <NavBar />
       {userData}
       {this.props.children}
+      <FooterBar />
     </div>
   }
 }

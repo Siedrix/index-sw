@@ -1,2 +1,24 @@
+
+
+$white-blueish: #f6f6ff;
+$white-pinkish: #fff8f8;
+$white:  $white-pinkish;
+
+$brown: #615D59;
+$brown-invert: #9EA2A6;
+$Black: brown;
+
+$red: #ef6055;
+$red-invert: #109FAA;
+
+$blue: #A0EAC5; // ESTO ES REALMENTE GREEN pero es que estos weyes usan blue como info y verde como success
+$blue-invert: #5F153A;
+
+$yellow: #FAEDBC;
+$yellow-invert: #051243;
+
+$primary: $brown;
+$primary-invert: $white-pinkish;
+
 @import '~bulma';
 @import 'base';

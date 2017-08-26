@@ -64,7 +64,7 @@ class NavBar extends Component {
       <nav className='navbar'>
         <div className='navbar-brand'>
           <Link className='navbar-item' to='/'>
-            <h1>Marble Seeds</h1>
+            <img src="/public/logo.png"/>
           </Link>
 
           <div className='navbar-burger burger' onClick={(e) => this.handleNavbarBurgerClick(e)}>
