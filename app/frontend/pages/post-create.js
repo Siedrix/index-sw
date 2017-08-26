@@ -30,28 +30,43 @@ const baseData = {
 class PostCreate extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      loading : false
+    }
   }
 
   componentWillMount () {}
 
   async submitHandler ({formData}) {
+    if(this.state.loading) { return }
+
     formData.tags = formData.tags.split(',')
+    this.setState({loading: true})
     var data
     try {
       data = await api.post('/post', formData)
     } catch (e) {
-      this.setState({error: e.message})
+      this.setState({error: e.message, loading: false})
     }
 
     this.setState({
-      redirectToPost: data.uuid
+      redirectToPost: data.uuid,
+      loading : false
     })
   }
 
   render () {
     if (this.state.redirectToPost) {
       return <Redirect to={`/app/p/${this.state.redirectToPost}`} />
+    }
+
+    var loadingElem
+    if(this.state.loading){
+      loadingElem = (<span><button className='button is-primary is-fullwidth is-loading' type='submit'>Please be patiente</button><div className="notification is-warning">
+       We are building this at the moment and creating a new post will take 20-30 seconds for the moment, please be patiente
+      </div></span>)
+    } else {
+      loadingElem = <button className='button is-primary is-fullwidth' type='submit'>Submit</button>
     }
 
     return (
@@ -64,7 +79,7 @@ class PostCreate extends Component {
               onSubmit={(e) => { this.submitHandler(e) }}
               onError={(e) => { this.errorHandler(e) }}>
               <div>
-                <button className='button is-primary is-fullwidth' type='submit'>Submit</button>
+                {loadingElem}
               </div>
             </BaseForm>
           </div>
