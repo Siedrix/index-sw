@@ -51,7 +51,7 @@ class SignUp extends Component {
 
   render () {
     if (this.state.redirect) {
-      return <Redirect to='/app' />
+      return <Redirect to={'/u/' + tree.get("user").screenName} />
     }
 
     return (
