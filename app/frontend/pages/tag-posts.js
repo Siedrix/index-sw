@@ -44,9 +44,9 @@ class UserTagPosts extends Component {
 
     return (
       <div>
-        <h1>{tag}</h1>
 
         <div className='container' style={{marginTop: 40, marginBottom: 100}}>
+          <h1>{tag}</h1>
           {postsEls}
         </div>
       </div>

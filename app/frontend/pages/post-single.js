@@ -81,9 +81,6 @@ class PostSingle extends Component {
     }
 
     return (<div>
-      <div>
-        <h1 className='title'>Juanito Escarcha</h1>
-      </div>
       <br />
       <div className='container' style={{marginTop: 40, marginBottom: 100}}>
         <div className='columns'>

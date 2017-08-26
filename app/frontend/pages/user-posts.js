@@ -63,10 +63,10 @@ class UserPosts extends Component {
 
     return (
       <div>
-        <h1>{user.displayName}</h1>
-        <h2>@{user.screenName}</h2>
-
         <div className='container' style={{marginTop: 40, marginBottom: 100}}>
+          <p>
+            <strong>{user.displayName}</strong> <small>@{user.screenName} posts:</small>
+          </p>
           {postsEls}
         </div>
       </div>
