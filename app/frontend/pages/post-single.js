@@ -69,12 +69,6 @@ class PostSingle extends Component {
               <p>
                 <strong>{this.state.post.siteName}</strong> <small>{this.state.post.title}</small> <br/><small>{this.state.post.createdAt}</small>
                 <br />
-                <div className="tabs">
-                  <ul>
-                    <li className="is-active"><a>Descripción</a></li>
-                    <li><a>Notas</a></li>
-                  </ul>
-                </div>
                 <div className={this.state.isToggleOn ? 'collapse-content' : 'show-content'} dangerouslySetInnerHTML={{__html: this.state.post.html}} ></div>
               </p>
             </div>
