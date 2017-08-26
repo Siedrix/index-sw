@@ -3,7 +3,7 @@ const { Schema } = require('mongoose')
 
 const urlSchema = new Schema({
   created_at: { type: Date, default: Date.now },
-  url: String,
+  pageUrl: String,
   content: String,
   images: [Schema.Types.Mixed],
   diffbotUri: String,
