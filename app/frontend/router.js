@@ -50,9 +50,8 @@ const AppRouter = () => {
         <Route exact path='/about' component={About} />
         <LoginRoute exact path='/sign-up' component={SignUp} />
         <LoginRoute exact path='/log-in' component={LogIn} />
-        <PrivateRoute path='/app' component={App} />
+        <PrivateRoute exact path='/app' component={App} />
         <Route exact path='/app/p/:uuid' component={PostSingle} />
-        <Route exact path='/app/u/:uuid' component={UserPosts} />
       </div>
     </Layout>
   </Router>)
