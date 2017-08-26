@@ -152,7 +152,7 @@ describe('/post', () => {
     })
   })
 
-  describe.only('[post] / Single', () => {
+  describe('[post] / Single', () => {
     it('should return a post', async function () {
       const user = await createUser({ password })
       const jwt = user.getJwt()

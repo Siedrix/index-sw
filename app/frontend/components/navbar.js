@@ -63,6 +63,16 @@ class NavBar extends Component {
       </div>)
     }
 
+    var leftNavButtons
+    if (this.props.loggedIn){
+      leftNavButtons = (
+        <Link className='navbar-item' to={"/u/" + tree.get("user").screenName}>
+          Your post
+        </Link>
+      )
+    }
+
+
     return (
       <nav className='navbar'>
         <div className='navbar-brand'>
@@ -81,6 +91,10 @@ class NavBar extends Component {
             <Link className='navbar-item' to='/about'>
               About
             </Link>
+            <Link className='navbar-item' to="/tags">
+              Tags
+            </Link>
+            {leftNavButtons}
           </div>
           <div className='navbar-end'>
             <div className='navbar-item'>

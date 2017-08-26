@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 import Post from '~components/post'
+import { Link, Redirect } from 'react-router-dom'
 
 class UserPosts extends Component {
   constructor (props) {
@@ -45,15 +46,26 @@ class UserPosts extends Component {
       return (<div>{err.message}</div>)
     }
 
-    const postsEls = posts.data.map(post => {
-      return <Post data={post} />
-    })
+    var postsEls
+    if(posts.total > 0){
+      postsEls= posts.data.map(post => {
+       return <Post data={post} />
+     })
+    } else {
+     postsEls =
+        <div className="notification is-success">
+          You have no submitted any post yet, start by doing the first one here:
+          <p className='control'>
+            <Link className='bd-tw-button button is-primary' to='/post/create'>Submit Link</Link>
+          </p>
+        </div>
+    }
+
+
 
     return (
       <div>
-        <h1>{user.displayName}</h1>
-        <h2>@{user.screenName}</h2>
-
+        <strong>{user.displayName}</strong> <small>@{user.screenName} posts:</small>
         <div className="columns">
           <div className="column is-one-quarter">
             <div className="card">
