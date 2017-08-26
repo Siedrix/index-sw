@@ -6,11 +6,12 @@ const dataTables = require('mongoose-datatables')
 
 const postSchema = new Schema({
   createdAt: {type: Date, default: Date.now},
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
-  url: { type: Schema.Types.ObjectId, ref: 'Url' },
+  user: {type: Schema.Types.ObjectId, ref: 'User'},
+  url: {type: Schema.Types.ObjectId, ref: 'Url'},
   description: String,
-  tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-  uuid: { type: String, default: v4 }
+  tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
+  uuid: {type: String, default: v4},
+  deleted: {type: Boolean, default: false}
 })
 
 postSchema.methods.format = function () {

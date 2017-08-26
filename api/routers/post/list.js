@@ -4,7 +4,10 @@ module.exports = {
   method: 'get',
   path: '/',
   handler: async function (ctx) {
-    const query = {}
+    const query = {
+      deleted: {$ne: true}
+    }
+
     if (ctx.request.query.user) {
       const user = await User.findOne({screenName: ctx.request.query.user.toLowerCase()})
       query.user = user._id
@@ -19,7 +22,8 @@ module.exports = {
       limit: ctx.request.query.limit || 20,
       skip: ctx.request.query.start,
       find: query,
-      populate: 'url tags user'
+      populate: 'url tags user',
+      sort: '-createdAt'
     })
 
     posts.data = posts.data.map(p => p.format())
