@@ -55,7 +55,7 @@ class PostCreate extends Component {
     }
 
     return (
-      <div className='App'>
+      <div className='App container' style={{marginTop: 40, marginBottom: 100}}>
         <div className='card-content'>
           <div className='content'>
             <BaseForm schema={schema}
