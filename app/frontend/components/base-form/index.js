@@ -31,6 +31,16 @@ const TextWidget = (props) => {
   )
 }
 
+const TextareaWidget = (props) => {
+  return (
+    <textarea
+      className='textarea'
+      value={props.value}
+      required={props.required}
+      onChange={(event) => props.onChange(event.target.value)} />
+  )
+}
+
 function CustomFieldTemplate (props) {
   const {id, classNames, label, help, required, description, errors, children} = props
 
@@ -62,4 +72,4 @@ class BaseForm extends Component {
   }
 }
 
-export {BaseForm, PasswordWidget, EmailWidget, TextWidget}
+export {BaseForm, PasswordWidget, EmailWidget, TextWidget, TextareaWidget}
