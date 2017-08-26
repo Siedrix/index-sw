@@ -19,8 +19,9 @@ describe('/post', () => {
     await clearDatabase()
   })
 
-  describe('[post] / Create post', () => {
+  describe.only('[post] / Create post', () => {
     it('should return a post', async function () {
+      this.timeout(120000)
       const user = await createUser({ password })
       const jwt = user.getJwt()
 
