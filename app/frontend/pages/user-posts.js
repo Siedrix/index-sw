@@ -71,7 +71,7 @@ class UserPosts extends Component {
         <strong>{user.displayName}</strong> <small>@{user.screenName} posts:</small>
         <div className="columns">
           <div className="column is-one-quarter">
-            <div className="card">
+            <div className="box">
               <header class="card-header">
                 <p class="card-header-title">
                   Tags

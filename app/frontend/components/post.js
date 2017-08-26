@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class Post extends Component {
   constructor (props) {
@@ -17,9 +18,9 @@ class Post extends Component {
 
   render () {
     const postsTags = this.props.data.tags.map(t => {
-      return <a className="level-item">
-                    <small><a className="button is-light" href={"/t/" + t.name}>{t.name}</a></small>
-                  </a>
+      return <Link className="level-item" to={"/t/" + t.slug}>
+        <small className="button is-light" >{t.name}</small>
+      </Link>
     })
 
     return <div className='box'>
@@ -45,7 +46,7 @@ class Post extends Component {
                   <div className="card">
                     <div className="card-content">
                       <p className="subtitle">
-                        <a  href={"/u/" + this.props.data.user.displayName}>{"@" + this.props.data.user.displayName}</a> learned in this site:
+                        <Link to={"/u/" + this.props.data.user.screenName}>{"@" + this.props.data.user.screenName}</Link> learned in this site:
                       </p>
                       <p className="title" style={{marginTop: 20, marginBottom: 20}}>
                         “{this.props.data.description}”
