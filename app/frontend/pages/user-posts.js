@@ -32,6 +32,8 @@ class UserPosts extends Component {
       user: user,
       posts: data
     })
+
+    //debugger
   }
 
   render () {
@@ -63,11 +65,29 @@ class UserPosts extends Component {
 
     return (
       <div>
-        <div className='container' style={{marginTop: 40, marginBottom: 100}}>
-          <p>
-            <strong>{user.displayName}</strong> <small>@{user.screenName} posts:</small>
-          </p>
-          {postsEls}
+        <strong>{user.displayName}</strong> <small>@{user.screenName} posts:</small>
+        <div className="columns">
+          <div className="column is-one-quarter">
+            <div className="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Tags
+                </p>
+              </header>
+              <div className="card-content">
+                <small><a className="button is-light" href="">foo</a></small> 
+                <br/>
+                <small><a className="button is-light" href="">bar</a></small> 
+                <br/>
+                <small><a className="button is-light" href="">ia</a></small> 
+                <br/>
+
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            {postsEls}
+          </div>
         </div>
       </div>
     )
