@@ -41,14 +41,8 @@ class Layout extends Component {
       return <div>Loading...</div>
     }
 
-    var userData
-    if (this.state.user && this.state.user.screenName) {
-      userData = (<h1>Welcome {this.state.user.screenName}</h1>)
-    }
-
     return <div>
       <NavBar />
-      {userData}
       {this.props.children}
     </div>
   }

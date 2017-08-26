@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 
-class UserPosts extends Component {
+class TagPosts extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -14,26 +14,25 @@ class UserPosts extends Component {
   }
 
   async load () {
-    const username = this.props.match.params.username
+    const tag = this.props.match.params.tagname
 
     var data
-    var user
     try {
-      user = await api.get(`/user/${username}`)
-      data = await api.get('/post/', {user: username})
+      data = await api.get('/post/', {tag: tag})
     } catch (e) {
       console.log('=>', e)
     }
 
     this.setState({
       loaded: true,
-      user: user,
       posts: data
     })
   }
 
   render () {
-    const {user, posts, loaded} = this.state
+    const {posts, loaded} = this.state
+    const tag = this.props.match.params.tagname
+
     if (!loaded) {
       return (<div>Loading...</div>)
     }
@@ -47,8 +46,7 @@ class UserPosts extends Component {
 
     return (
       <div>
-        <h1>{user.displayName}</h1>
-        <h2>@{user.screenName}</h2>
+        <h1>{tag}</h1>
 
         {postsEls}
       </div>
@@ -56,4 +54,4 @@ class UserPosts extends Component {
   }
 }
 
-export default UserPosts
+export default TagPosts
