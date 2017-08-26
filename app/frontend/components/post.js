@@ -18,7 +18,7 @@ class Post extends Component {
   render () {
     const postsTags = this.props.data.tags.map(t => {
       return <a className="level-item">
-                    <small><a className="button is-light" href={"/t/" + t.name}>{t.name}</a></small> 
+                    <small><a className="button is-light" href={"/t/" + t.name}>{t.name}</a></small>
                   </a>
     })
 
@@ -32,7 +32,7 @@ class Post extends Component {
             <div className='media-content'>
               <div className='content'>
                 <p>
-                  <strong>{this.props.data.siteName}</strong> <small>{this.props.data.title}</small> 
+                  <strong>{this.props.data.siteName}</strong> <small>{this.props.data.title}</small>
                   <br /><small></small>
                   <nav className="level is-mobile">
                     <div className="level-left">
@@ -47,7 +47,7 @@ class Post extends Component {
                       <p className="subtitle">
                         <a  href={"/u/" + this.props.data.user.displayName}>{"@" + this.props.data.user.displayName}</a> learned in this site:
                       </p>
-                      <p className="title">
+                      <p className="title" style={{marginTop: 20, marginBottom: 20}}>
                         “{this.props.data.description}”
                       </p>
 
@@ -62,7 +62,7 @@ class Post extends Component {
               </div>
               <nav className="level is-mobile">
                 <div className="level-left">
-                    
+
                 </div>
                 <div className="level-right">
                   <a className="level-item">

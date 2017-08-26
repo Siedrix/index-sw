@@ -61,6 +61,9 @@ class UserPosts extends Component {
         </div>
     }
 
+    const tagsEls = user.tags.map(tag => {
+      return <small><Link to={'/u/' + user.screenName + "/" + tag.slug} className="button is-light">{tag.name}</Link></small>
+    })
 
 
     return (
@@ -75,12 +78,7 @@ class UserPosts extends Component {
                 </p>
               </header>
               <div className="card-content">
-                <small><a className="button is-light" href="">foo</a></small> 
-                <br/>
-                <small><a className="button is-light" href="">bar</a></small> 
-                <br/>
-                <small><a className="button is-light" href="">ia</a></small> 
-                <br/>
+                {tagsEls}
 
               </div>
             </div>
