@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const { Schema } = require('mongoose')
 const { v4 } = require('uuid')
 
+const dataTables = require('mongoose-datatables')
+
 const postSchema = new Schema({
   created_at: {type: Date, default: Date.now},
   user: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -10,5 +12,7 @@ const postSchema = new Schema({
   tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
   uuid: { type: String, default: v4 }
 })
+
+postSchema.plugin(dataTables)
 
 module.exports = mongoose.model('Post', postSchema)
