@@ -14,7 +14,7 @@ import About from './pages/about'
 import SignUp from './pages/sign-up'
 import LogIn from './pages/log-in'
 
-import App from './pages/app'
+import PostCreate from './pages/post-create'
 import PostSingle from './pages/post-single'
 import UserPosts from './pages/user-posts'
 import TagPosts from './pages/tag-posts'
@@ -52,7 +52,7 @@ const AppRouter = () => {
         <Route exact path='/about' component={About} />
         <LoginRoute exact path='/sign-up' component={SignUp} />
         <LoginRoute exact path='/log-in' component={LogIn} />
-        <PrivateRoute exact path='/app' component={App} />
+        <PrivateRoute exact path='/post/create' component={PostCreate} />
         <Route exact path='/app/p/:uuid' component={PostSingle} />
         <Route exact path='/u/:username/:tagname' component={UserTagPosts} />
         <Route exact path='/u/:username' component={UserPosts} />
