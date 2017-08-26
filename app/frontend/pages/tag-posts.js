@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 
-class TagPosts extends Component {
+class UserTagPosts extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -20,7 +20,7 @@ class TagPosts extends Component {
     try {
       data = await api.get('/post/', {tag: tag})
     } catch (e) {
-      console.log('=>', e)
+      return this.setState({err: e})
     }
 
     this.setState({
@@ -54,4 +54,4 @@ class TagPosts extends Component {
   }
 }
 
-export default TagPosts
+export default UserTagPosts

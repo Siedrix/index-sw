@@ -20,7 +20,6 @@ class Layout extends Component {
     const userCursor = tree.select('user')
 
     userCursor.on('update', ({data}) => {
-      console.log('Cursor data =>', data)
       const user = data.currentData
       this.setState({user})
     })

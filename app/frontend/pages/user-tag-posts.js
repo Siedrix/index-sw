@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 
-class UserPosts extends Component {
+class UserTagPosts extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -15,14 +15,15 @@ class UserPosts extends Component {
 
   async load () {
     const username = this.props.match.params.username
+    const tagName = this.props.match.params.tagname
 
     var data
     var user
     try {
       user = await api.get(`/user/${username}`)
-      data = await api.get('/post/', {user: username})
+      data = await api.get('/post/', {user: username, tag: tagName})
     } catch (e) {
-      this.setState({err: e})
+      return this.setState({err: e})
     }
 
     this.setState({
@@ -34,6 +35,8 @@ class UserPosts extends Component {
 
   render () {
     const {user, posts, loaded, err} = this.state
+    const tagName = this.props.match.params.tagname
+
     if (!loaded) {
       return (<div>Loading...</div>)
     }
@@ -51,7 +54,7 @@ class UserPosts extends Component {
 
     return (
       <div>
-        <h1>{user.displayName}</h1>
+        <h1>{user.displayName} - {tagName}</h1>
         <h2>@{user.screenName}</h2>
 
         {postsEls}
@@ -60,4 +63,4 @@ class UserPosts extends Component {
   }
 }
 
-export default UserPosts
+export default UserTagPosts
