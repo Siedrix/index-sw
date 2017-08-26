@@ -1,5 +1,6 @@
-const {Post, Url} = require('models')
+const {Post, Url, Tag} = require('models')
 const diffbot = require('lib/diffbot')
+const _a = require('lodash-addons')
 
 module.exports = {
   method: 'post',
@@ -9,6 +10,7 @@ module.exports = {
 
     const urlString = ctx.request.body.url
     const description = ctx.request.body.description
+    const tags = ctx.request.body.tags || []
 
     if (!urlString) { ctx.throw(422, 'Url is required') }
     const data = await diffbot(urlString)
@@ -23,8 +25,21 @@ module.exports = {
       description
     })
 
+    for (const tagName of tags) {
+      const slug = _a.slugify(tagName)
+      var tag = await Tag.findOne({slug: slug})
+
+      if (!tag) {
+        tag = await Tag.create({slug, name: tagName})
+      }
+
+      post.tags.push(tag._id)
+    }
+
     await post.save()
 
-    ctx.body = post.toJSON()
+    ctx.body = {
+      uuid: post.uuid
+    }
   }
 }
