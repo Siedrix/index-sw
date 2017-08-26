@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import request from '~core/request'
+import api from '~core/api'
 import tree from '~core/tree'
 import { Redirect } from 'react-router-dom'
 
@@ -7,7 +7,7 @@ import {BaseForm, TextareaWidget, TextWidget} from '~components/base-form'
 
 const schema = {
   type: 'object',
-  required: ['email', 'password', 'screenName', 'displayName'],
+  required: ['url', 'description', 'tags'],
   properties: {
     url: {type: 'string', title: 'Url'},
     description: {type: 'string', title: 'Description'},
@@ -21,6 +21,12 @@ const uiSchema = {
   tags: { 'ui:widget': TextWidget }
 }
 
+const baseData = {
+  url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
+  description: 'lolz 222',
+  tags: 'foo,bar'
+}
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -29,17 +35,31 @@ class App extends Component {
 
   componentWillMount () {}
 
-  submitHandler () {
-    debugger
+  async submitHandler ({formData}) {
+    var data
+    try {
+      data = await api.post('/post', formData)
+    } catch (e) {
+      this.setState({error: e.message})
+    }
+
+    this.setState({
+      redirectToPost: data.uuid
+    })
   }
 
   render () {
+    if (this.state.redirectToPost) {
+      return <Redirect to={`/app/p/${this.state.redirectToPost}`} />
+    }
+
     return (
       <div className='App'>
         <div className='card-content'>
           <div className='content'>
             <BaseForm schema={schema}
               uiSchema={uiSchema}
+              formData={baseData}
               onSubmit={(e) => { this.submitHandler(e) }}
               onError={(e) => { this.errorHandler(e) }}>
               <div>
@@ -54,3 +74,4 @@ class App extends Component {
 }
 
 export default App
+  

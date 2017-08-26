@@ -70,7 +70,7 @@ describe('/user', () => {
     })
   })
 
-  describe.only('[get] /me Gets jwt user data', () => {
+  describe('[get] /me Gets jwt user data', () => {
     it('should return a 200 with loggedIn false', async function () {
       const res = await test()
         .get('/api/user/me')
