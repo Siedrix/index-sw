@@ -52,7 +52,9 @@ class UserPosts extends Component {
         <h1>{user.displayName}</h1>
         <h2>@{user.screenName}</h2>
 
-        {postsEls}
+        <div className='container' style={{marginTop: 40, marginBottom: 100}}>
+          {postsEls}
+        </div>
       </div>
     )
   }

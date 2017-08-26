@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import api from '~core/api'
+import Post from '~components/post'
 
 class UserTagPosts extends Component {
   constructor (props) {
@@ -38,17 +39,16 @@ class UserTagPosts extends Component {
     }
 
     const postsEls = posts.data.map(p => {
-      return <div className='card'>
-        <h4>{p.title}</h4>
-        <p>{p.description}</p>
-      </div>
+      return <Post data={p}/>
     })
 
     return (
       <div>
         <h1>{tag}</h1>
 
-        {postsEls}
+        <div className='container' style={{marginTop: 40, marginBottom: 100}}>
+          {postsEls}
+        </div>
       </div>
     )
   }
