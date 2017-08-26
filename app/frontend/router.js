@@ -19,6 +19,7 @@ import PostSingle from './pages/post-single'
 import UserPosts from './pages/user-posts'
 import TagPosts from './pages/tag-posts'
 import UserTagPosts from './pages/user-tag-posts'
+import TagList from './pages/tag-list'
 
 const LoginRoute = ({ component: Component, ...rest }) => {
   return <Route {...rest} render={props => {
@@ -57,6 +58,7 @@ const AppRouter = () => {
         <Route exact path='/u/:username/:tagname' component={UserTagPosts} />
         <Route exact path='/u/:username' component={UserPosts} />
         <Route exact path='/t/:tagname' component={TagPosts} />
+        <Route exact path='/tags' component={TagList} />
       </div>
     </Layout>
   </Router>)
