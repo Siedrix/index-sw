@@ -6,8 +6,13 @@ class PostSingle extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      loaded: false
+      loaded: false,
+      isToggleOn: true
+
     }
+
+    this.handleClick = this.handleClick.bind(this);
+    
   }
 
   componentWillMount (){
@@ -19,7 +24,7 @@ class PostSingle extends Component {
   async getPosts () {
     const uuid = this.props.match.params.uuid
     console.log('=>', uuid)
-    debugger
+    //debugger
 
     var data
     try {
@@ -34,44 +39,53 @@ class PostSingle extends Component {
     })
   }
 
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+    //debugger
+  }
+
+
   render () {
     if (!this.state.loaded) {
       return <div>Loading...</div>
     }
 
-    return (
+    return (<div>
+      <div>
+        <h1 className="title">Juanito Escarcha</h1>
+      </div>
+      <br/>
       <div className="box">
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image"/>
+              <img src={this.state.post.siteIcon} alt="Image"/>
             </figure>
           </div>
           <div className="media-content">
             <div className="content">
               <p>
-                <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                <strong>{this.state.post.siteName}</strong> <small>{this.state.post.title}</small> <br/><small>{this.state.post.createdAt}</small>
                 <br />
-                {this.state.post.description}
+                <div className="tabs">
+                  <ul>
+                    <li className="is-active"><a>Descripción</a></li>
+                    <li><a>Notas</a></li>
+                  </ul>
+                </div>
+                <div className={this.state.isToggleOn ? 'collapse-content' : 'show-content'} dangerouslySetInnerHTML={{__html: this.state.post.html}} ></div>
               </p>
             </div>
-            <nav className="level is-mobile">
-              <div className="level-left">
-                <a className="level-item">
-                  <span className="icon is-small"><i className="fa fa-reply"></i></span>
-                </a>
-                <a className="level-item">
-                  <span className="icon is-small"><i className="fa fa-retweet"></i></span>
-                </a>
-                <a className="level-item">
-                  <span className="icon is-small"><i className="fa fa-heart"></i></span>
-                </a>
-              </div>
-            </nav>
+            <div>
+              <a className="button is-white" onClick={() => this.handleClick()}>{this.state.isToggleOn ? 'Leer más...' : 'Leer menos...'}</a>
+            </div>
+              
           </div>
         </article>
       </div>
-    )
+    </div>)
   }
 }
 
