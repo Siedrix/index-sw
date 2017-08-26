@@ -108,7 +108,9 @@ class Home extends Component {
           </div>
         </section>
 
-        {postsEls}
+        <div className='container' style={{marginTop: 40, marginBottom: 100}}>
+          {postsEls}
+        </div>
 
       </div>
     )
