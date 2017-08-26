@@ -1,5 +1,5 @@
 {
-  "name": "marble-seeds",
+  "name": "inddex.co",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "bulma": "^0.5.1",
     "css-loader": "^0.28.5",
     "debug": "^2.6.8",
+    "diffbot": "^1.0.3",
     "dotenv": "^4.0.0",
     "es6-requireindex": "^0.3.10",
     "express": "^4.15.4",
