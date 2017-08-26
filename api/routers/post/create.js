@@ -22,7 +22,8 @@ module.exports = {
 
     const post = new Post({
       url: url._id,
-      description
+      description,
+      user: ctx.state.user._id
     })
 
     for (const tagName of tags) {

@@ -8,7 +8,6 @@ export default function (method, headers = {}, url, data) {
     const req = request[method](url)
 
     _.each(headers, (value, key) => {
-      console.log('header =>', value, key)
       req.set(key, value)
     })
 

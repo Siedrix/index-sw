@@ -19,7 +19,7 @@ module.exports = {
       limit: ctx.request.query.limit || 20,
       skip: ctx.request.query.start,
       find: query,
-      populate: 'url tags'
+      populate: 'url tags user'
     })
 
     posts.data = posts.data.map(p => p.format())
