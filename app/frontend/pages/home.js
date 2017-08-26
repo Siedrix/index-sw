@@ -1,13 +1,46 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import api from '~core/api'
+import Post from '~components/post'
 
 class Home extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      loaded: false
+    }
   }
 
+  componentWillMount () {
+    this.load()
+  }
+
+  async load () {
+    var data
+
+    try {
+      data = await api.get('/post')
+    } catch (e) {
+      return this.setState({err: e})
+    }
+
+
+    this.setState({
+      loaded: true,
+      posts: data
+    })
+  }
+
+
   render () {
+    const {posts, loaded, err} = this.state
+
+    const postsEls = (loaded)?
+       posts.data.map(p => {
+        return <Post data={p} />
+      })
+    :<div>Loading...</div>;
+
     return (
       <div>
         <section className='home hero is-info bsa has-text-centered'>
@@ -63,8 +96,19 @@ class Home extends Component {
             </div>
           </div>
         </section>
+        <section className='home hero is-info bsa has-text-centered'>
+          <div className="hero-body">
+            <div className='container'>
+              <div className='columns is-vcentered'>
+                <div className='column'>
+                  <p className='title'>Some of the latest post:</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        
+        {postsEls}
 
       </div>
     )
