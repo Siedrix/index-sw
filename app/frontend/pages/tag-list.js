@@ -39,18 +39,16 @@ class TagList extends Component {
     }
     const tagsEls = this.state.tags.data.map(t => {
         return <a href={"/t/" + t.slug}>
-          <h4>{t.name}</h4>
+          {t.name},
         </a>
     })
 
     return (
-    <div>
-      <div>
+      <div className='container' style={{marginTop: 40, marginBottom: 100}}>
         <h1 className='title'>Tags</h1>
-      </div>
-      <br />
-      {tagsEls}
-    </div>)
+        <br />
+        {tagsEls}
+      </div>)
   }
 }
 
