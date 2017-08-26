@@ -13,6 +13,8 @@ expressNunjucks(app, {
   noCache: false
 })
 
+app.use('/public', express.static('app/public'))
+
 if (config.env === 'development') {
   console.log('Starting server in development with webpack hot reload')
 
@@ -28,7 +30,6 @@ if (config.env === 'development') {
   }))
 } else {
   console.log(`Starting server in ${config.env} with static assets`)
-  app.use('/assets', express.static('app/dist'))
 }
 
 app.get('*', function (req, res) {

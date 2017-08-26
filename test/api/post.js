@@ -19,7 +19,7 @@ describe('/post', () => {
     await clearDatabase()
   })
 
-  describe.only('[post] / Create post', () => {
+  describe('[post] / Create post', () => {
     it('should return a post', async function () {
       this.timeout(120000)
       const user = await createUser({ password })
@@ -120,7 +120,7 @@ describe('/post', () => {
     })
   })
 
-  describe('[post] / Single', () => {
+  describe.only('[post] / Single', () => {
     it('should return a post', async function () {
       const user = await createUser({ password })
       const jwt = user.getJwt()
@@ -140,6 +140,8 @@ describe('/post', () => {
         .get('/api/post/' + res.body.uuid)
         .set('Accept', 'application/json')
         .expect(200)
+
+      console.log(res3.body)
 
       expect(res3.body.uuid === res.body.uuid).equal(true)
     })
