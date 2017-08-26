@@ -1,4 +1,5 @@
 const {Post, Url} = require('models')
+const diffbot = require('lib/diffbot')
 
 module.exports = {
   method: 'post',
@@ -6,11 +7,15 @@ module.exports = {
   handler: async function (ctx) {
     if (!ctx.state.user) { ctx.throw(403) }
 
-    const { urlString, description } = ctx.request.body
+    const urlString = ctx.request.body.url
+    const description = ctx.request.body.description
 
-    var url = await Url.findOne({url: urlString})
+    if (!urlString) { ctx.throw(422, 'Url is required') }
+    const data = await diffbot(urlString)
+
+    var url = await Url.findOne({diffbotUri: data.diffbotUri})
     if (!url) {
-      url = await Url.create({url: urlString})
+      url = await Url.create(data)
     }
 
     const post = new Post({
