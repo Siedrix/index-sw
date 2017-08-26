@@ -28,3 +28,14 @@ body {
   max-width: 400px;
   margin: 100px auto;
 }
+
+.collapse-content {
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.show-content {
+  max-height: auto;
+  overflow: visible;
+}
+
