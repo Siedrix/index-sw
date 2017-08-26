@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import api from '~core/api'
+import Post from '~components/post'
 
 class UserPosts extends Component {
   constructor (props) {
@@ -22,7 +23,7 @@ class UserPosts extends Component {
       user = await api.get(`/user/${username}`)
       data = await api.get('/post/', {user: username})
     } catch (e) {
-      this.setState({err: e})
+      return this.setState({err: e})
     }
 
     this.setState({
@@ -42,11 +43,8 @@ class UserPosts extends Component {
       return (<div>{err.message}</div>)
     }
 
-    const postsEls = posts.data.map(p => {
-      return <div className='card'>
-        <h4>{p.title}</h4>
-        <p>{p.description}</p>
-      </div>
+    const postsEls = posts.data.map(post => {
+      return <Post data={post} />
     })
 
     return (
