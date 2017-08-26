@@ -38,7 +38,7 @@ describe('/post', () => {
     })
   })
 
-  describe.only('[post] / Create post with double url', () => {
+  describe('[post] / Create post with double url', () => {
     it('should return a post', async function () {
       const user = await createUser({ password })
       const jwt = user.getJwt()
@@ -74,4 +74,75 @@ describe('/post', () => {
       expect(urlCount).equal(1)
     })
   })
+
+
+  describe('[post] / List', () => {
+    it('should return a list', async function () {
+      const user = await createUser({ password })
+      const jwt = user.getJwt()
+
+      const res = await test()
+        .post('/api/post')
+        .send({
+          url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
+          description: 'This was useful'
+        })
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${jwt}`)
+        .expect(200)
+
+      const res2 = await test()
+        .post('/api/post')
+        .send({
+          url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
+          description: 'This was really useful'
+        })
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${jwt}`)
+        .expect(200)
+
+
+      const res3 = await test()
+        .get('/api/post?user=User')
+        .set('Accept', 'application/json')
+        .expect(200)
+
+      expect(res3.body.data.length === 2).equal(true)
+
+      const res4 = await test()
+        .get('/api/post')
+        .set('Accept', 'application/json')
+        .expect(200)
+
+      expect(res4.body.data.length === 2).equal(true)
+
+    })
+  })
+
+  describe('[post] / Single', () => {
+    it('should return a post', async function () {
+      const user = await createUser({ password })
+      const jwt = user.getJwt()
+
+      const res = await test()
+        .post('/api/post')
+        .send({
+          url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
+          description: 'This was useful'
+        })
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${jwt}`)
+        .expect(200)
+
+
+      const res3 = await test()
+        .get('/api/post/' + res.body.uuid)
+        .set('Accept', 'application/json')
+        .expect(200)
+
+      expect(res3.body.uuid === res.body.uuid).equal(true)
+    })
+  })
+
+
 })
