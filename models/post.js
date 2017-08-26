@@ -33,6 +33,10 @@ postSchema.methods.format = function () {
 
   data.tags = this.tags.map(t => ({ name: t.name, slug: t.slug }))
 
+  if (this.user) {
+    data.user = this.user.toPublic()
+  }
+
   return data
 }
 

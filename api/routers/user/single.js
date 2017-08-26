@@ -10,10 +10,6 @@ module.exports = {
 
     if (!user) { ctx.throw(404) }
 
-    ctx.body =  {
-      name: user.name,
-      screenName: user.screenName,
-      displayName: user.displayName
-    }
+    ctx.body = user.toPublic()
   }
 }

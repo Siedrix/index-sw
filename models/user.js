@@ -61,6 +61,14 @@ userSchema.methods.format = function () {
   }
 }
 
+userSchema.methods.toPublic = function () {
+  return {
+    uuid: this.uuid,
+    screenName: this.screenName,
+    displayName: this.displayName
+  }
+}
+
 userSchema.methods.getJwt = function () {
   return jwt.sign({
     uuid: this.uuid,

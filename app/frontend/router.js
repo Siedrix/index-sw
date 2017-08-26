@@ -18,6 +18,7 @@ import App from './pages/app'
 import PostSingle from './pages/post-single'
 import UserPosts from './pages/user-posts'
 import TagPosts from './pages/tag-posts'
+import UserTagPosts from './pages/user-tag-posts'
 
 const LoginRoute = ({ component: Component, ...rest }) => {
   return <Route {...rest} render={props => {
@@ -53,6 +54,7 @@ const AppRouter = () => {
         <LoginRoute exact path='/log-in' component={LogIn} />
         <PrivateRoute exact path='/app' component={App} />
         <Route exact path='/app/p/:uuid' component={PostSingle} />
+        <Route exact path='/u/:username/:tagname' component={UserTagPosts} />
         <Route exact path='/u/:username' component={UserPosts} />
         <Route exact path='/t/:tagname' component={TagPosts} />
       </div>
