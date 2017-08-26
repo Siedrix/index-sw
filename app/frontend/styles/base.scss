@@ -1,6 +1,7 @@
 html {
-  background-color: #ededed;
+  background-color: $white-pinkish;
   height: 100%;
+  color: $brown
 }
 
 body {
@@ -37,3 +38,4 @@ body {
   max-height: auto;
   overflow: visible;
 }
+

@@ -31,6 +31,8 @@ postSchema.methods.format = function () {
     data.href = this.url.pageUrl
   }
 
+  data.tags = this.tags.map(t => ({ name: t.name, slug: t.slug }))
+
   return data
 }
 

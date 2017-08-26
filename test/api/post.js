@@ -3,11 +3,12 @@ require('co-mocha')
 
 const { expect } = require('chai')
 const http = require('http')
+const _ = require('lodash')
 const { clearDatabase, createUser } = require('../utils')
 const api = require('api/')
 const request = require('supertest')
 
-const {Post, Url} = require('models')
+const {Post, Url, Tag} = require('models')
 
 function test () {
   return request(http.createServer(api.callback()))
@@ -21,7 +22,6 @@ describe('/post', () => {
 
   describe('[post] / Create post', () => {
     it('should return a post', async function () {
-      this.timeout(120000)
       const user = await createUser({ password })
       const jwt = user.getJwt()
 
@@ -36,6 +36,38 @@ describe('/post', () => {
         .expect(200)
 
       expect(typeof res.body.uuid).equal('string')
+    })
+
+    it('create post with tags', async function () {
+      const user = await createUser({ password })
+      const jwt = user.getJwt()
+
+      const res = await test()
+        .post('/api/post')
+        .send({
+          url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
+          description: 'This was useful',
+          tags: ['foo', 'bar']
+        })
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${jwt}`)
+        .expect(200)
+
+      expect(typeof res.body.uuid).equal('string')
+
+      const resSingle = await test()
+        .get('/api/post/' + res.body.uuid)
+        .set('Accept', 'application/json')
+        .expect(200)
+
+      expect(resSingle.body.href).equal('http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html')
+      expect(resSingle.body.title).equal('Why Is It Hard to Make Friends Over 30?')
+      expect(_.isArray(resSingle.body.tags)).equal(true)
+      expect(resSingle.body.tags[0].name).equal('foo')
+      expect(resSingle.body.tags[1].name).equal('bar')
+
+      const tagCount = await Tag.count()
+      expect(tagCount).equal(2)
     })
   })
 
@@ -76,7 +108,7 @@ describe('/post', () => {
     })
   })
 
-  describe.only('[post] / List', () => {
+  describe('[post] / List', () => {
     it('should return a list', async function () {
       const user = await createUser({ password })
       const jwt = user.getJwt()
@@ -120,7 +152,7 @@ describe('/post', () => {
     })
   })
 
-  describe('[post] / Single', () => {
+  describe.only('[post] / Single', () => {
     it('should return a post', async function () {
       const user = await createUser({ password })
       const jwt = user.getJwt()
