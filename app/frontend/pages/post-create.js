@@ -21,11 +21,6 @@ const uiSchema = {
   tags: { 'ui:widget': TextWidget }
 }
 
-const baseData = {
-  url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
-  description: 'lolz 222',
-  tags: 'foo,bar'
-}
 
 class PostCreate extends Component {
   constructor (props) {
@@ -75,7 +70,6 @@ class PostCreate extends Component {
           <div className='content'>
             <BaseForm schema={schema}
               uiSchema={uiSchema}
-              formData={baseData}
               onSubmit={(e) => { this.submitHandler(e) }}
               onError={(e) => { this.errorHandler(e) }}>
               <div>
