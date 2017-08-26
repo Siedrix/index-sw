@@ -1,57 +1,77 @@
 import React, { Component } from 'react'
-import request from '~core/request'
+import api from '~core/api'
 import tree from '~core/tree'
 import { Redirect } from 'react-router-dom'
+
+import {BaseForm, TextareaWidget, TextWidget} from '~components/base-form'
+
+const schema = {
+  type: 'object',
+  required: ['url', 'description', 'tags'],
+  properties: {
+    url: {type: 'string', title: 'Url'},
+    description: {type: 'string', title: 'Description'},
+    tags: {type: 'string', title: 'Tags'}
+  }
+}
+
+const uiSchema = {
+  url: { 'ui:widget': TextWidget },
+  description: { 'ui:widget': TextareaWidget },
+  tags: { 'ui:widget': TextWidget }
+}
+
+const baseData = {
+  url: 'http://www.nytimes.com/2012/07/15/fashion/the-challenge-of-making-friends-as-an-adult.html',
+  description: 'lolz 222',
+  tags: 'foo,bar'
+}
 
 class App extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      posts: [],
-      loading: true
+    this.state = {}
+  }
+
+  componentWillMount () {}
+
+  async submitHandler ({formData}) {
+    var data
+    try {
+      data = await api.post('/post', formData)
+    } catch (e) {
+      this.setState({error: e.message})
     }
-  }
-
-  componentWillMount () {
-    this.load()
-  }
-
-  async load () {
-    const body = await request('get', null, 'https://www.reddit.com/r/all.json')
 
     this.setState({
-      loading: false,
-      posts: body.data.children.map(item => item.data)
+      redirectToPost: data.uuid
     })
   }
 
   render () {
-    const {loading, posts} = this.state
-
-    if (loading) {
-      return <div>Loading...</div>
+    if (this.state.redirectToPost) {
+      return <Redirect to={`/app/p/${this.state.redirectToPost}`} />
     }
-
-    if (this.state.redirect) {
-      return <Redirect to='/log-in' />
-    }
-
-    const postsList = posts.map(post => {
-      return <div key={post.id}>
-        <h4>{post.title}</h4>
-        <a href={'http://reddit.com' + post.permalink} target='_blank'>{post.domain}</a>
-      </div>
-    })
 
     return (
       <div className='App'>
-        <div className='App-header'>
-          <h2>Post list</h2>
+        <div className='card-content'>
+          <div className='content'>
+            <BaseForm schema={schema}
+              uiSchema={uiSchema}
+              formData={baseData}
+              onSubmit={(e) => { this.submitHandler(e) }}
+              onError={(e) => { this.errorHandler(e) }}>
+              <div>
+                <button className='button is-primary is-fullwidth' type='submit'>Sign up</button>
+              </div>
+            </BaseForm>
+          </div>
         </div>
-        {postsList}
       </div>
     )
   }
 }
 
 export default App
+  
