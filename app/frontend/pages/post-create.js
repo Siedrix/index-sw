@@ -37,7 +37,6 @@ class PostCreate extends Component {
 
   async submitHandler ({formData}) {
     formData.tags = formData.tags.split(',')
-    debugger
     var data
     try {
       data = await api.post('/post', formData)
