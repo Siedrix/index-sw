@@ -46,6 +46,9 @@ class NavBar extends Component {
     if (this.props.loggedIn) {
       navButtons = (<div className='field is-grouped'>
         <p className='control'>
+          <Link className='bd-tw-button button is-primary' to='/post/create'>Submit Link</Link>
+        </p>
+        <p className='control'>
           <button className='bd-tw-button button' onClick={() => this.handleLogout()}>Log out</button>
         </p>
       </div>)
