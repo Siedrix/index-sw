@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 class Post extends Component {
   constructor (props) {
@@ -17,6 +18,7 @@ class Post extends Component {
   }
 
   render () {
+    moment.locale('en');
     const postsTags = this.props.data.tags.map(t => {
       return <Link className="level-item" to={"/t/" + t.slug}>
         <small className="button is-light" >{t.name}</small>
@@ -37,7 +39,7 @@ class Post extends Component {
                   <br /><small></small>
                   <nav className="level is-mobile">
                     <div className="level-left">
-                        {this.props.data.createdAt}
+                        {moment(this.props.data.createdAt).format('LLLL')}
                     </div>
                     <div className="level-right">
                       {postsTags}
