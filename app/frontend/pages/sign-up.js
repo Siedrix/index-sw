@@ -12,8 +12,8 @@ const schema = {
   properties: {
     email: {type: 'string', title: 'Email'},
     password: {type: 'string', title: 'Password'},
-    screenName: {type: 'string', title: 'ScreenName'},
-    displayName: {type: 'string', title: 'DisplayName'}
+    screenName: {type: 'string', title: 'User Name'},
+    displayName: {type: 'string', title: 'Full Name'}
   }
 }
 
