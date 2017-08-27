@@ -64,27 +64,27 @@ class Home extends Component {
           <div className="hero-body">
             <div className="container">
               <nav className="columns">
-                <a className="column has-text-centered" href="http://bulma.io/documentation/overview/responsiveness/">
+                <span className="column has-text-centered">
                   <span className="icon is-large">
                     <i className="fa fa-university"></i>
                   </span>
                   <p className="title is-4"><strong>Discover</strong></p>
                   <p className="subtitle">Find content for your <strong>learning path</strong></p>
-                </a>
-                <a className="column has-text-centered" href="http://bulma.io/documentation/overview/modular/">
+                </span>
+                <span className="column has-text-centered">
                   <span className="icon is-large">
                     <i className="fa fa-cubes"></i>
                   </span>
                   <p className="title is-4"><strong>Collaborative Learning</strong></p>
                   <p className="subtitle">Write and share <strong>insights</strong> from content</p>
-                </a>
-                <a className="column has-text-centered" href="http://bulma.io/documentation/columns/basics/">
+                </span>
+                <span className="column has-text-centered">
                   <span className="icon is-large">
                     <i className="fa fa-users"></i>
                   </span>
                   <p className="title is-4"><strong>Recommend</strong></p>
                   <p className="subtitle">Suggest content to <strong>friends</strong></p>
-                </a>
+                </span>
                 <a className="column has-text-centered" href="https://github.com/Siedrix/index-sw">
                   <span className="icon is-large">
                     <i className="fa fa-github"></i>
