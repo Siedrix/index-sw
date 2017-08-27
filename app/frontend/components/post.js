@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+moment.locale('en');
 
 class Post extends Component {
   constructor (props) {
@@ -18,7 +19,6 @@ class Post extends Component {
   }
 
   render () {
-    moment.locale('en');
     const postsTags = this.props.data.tags.map(t => {
       return <Link className="level-item" to={"/t/" + t.slug}>
         <small className="button is-light" >{t.name}</small>
