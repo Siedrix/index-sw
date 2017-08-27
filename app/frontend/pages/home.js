@@ -74,13 +74,21 @@ class Home extends Component {
     return (
       <div>
         <section className='home hero is-info bsa has-text-centered'>
-          <div className="hero-body">
+          <div className='hero-body'>
             <div className='container'>
               <div className='columns is-vcentered'>
                 <div className='column'>
                   <p className='title'>Inddex</p>
                   <p className='subtitle'>
                     Share content, and what you learned from it!
+                  </p>
+                </div>
+              </div>
+              <div className='columns is-vcentered'>
+                <div className='column is-8 is-offset-2'>
+                  <p className='subtitle'>
+                    “Quería aprender acerca de la bolsa de valores, me han recomendado muchos libros, entre ellos uno de más de 1500 páginas súper especializado, el mejor contenido del tema pero muy complejo para empezar.<br />
+                    <b>Después de 5 horas de investigación encontré 3 contenidos mejores para mi nivel de conocimiento.” --Santigo Zavala</b>
                   </p>
                 </div>
               </div>
