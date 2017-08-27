@@ -36,12 +36,13 @@ class Home extends Component {
   async loadMoreHandler () {
     this.setState({loadingMore: true})
 
-    const morePosts = await api.get('/post', {skip: (this.state.page + 1) * 20})
+    const morePosts = await api.get('/post', {start: (this.state.page + 1) * 20})
 
     this.setState({
       loaded: true,
       posts: {
-        data: this.state.posts.data.concat(morePosts.data)
+        data: this.state.posts.data.concat(morePosts.data),
+        total: morePosts.total
       },
       page: this.state.page + 1
     })
@@ -59,7 +60,7 @@ class Home extends Component {
         return <Post key={i} data={p} />
       })
 
-      if (this.state.posts.total >= this.state.posts.data.length) {
+      if (this.state.posts.total <= this.state.posts.data.length) {
         loadMoreButton = <div />
       } else if (!this.state.loadingMore) {
         loadMoreButton = <button className='button is-primary is-fullwidth' onClick={() => this.loadMoreHandler()}>More</button>
