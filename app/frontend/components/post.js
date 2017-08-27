@@ -48,7 +48,7 @@ class Post extends Component {
                   <div className="card">
                     <div className="card-content">
                       <p className="subtitle">
-                        <Link to={"/u/" + this.props.data.user.screenName}>{"@" + this.props.data.user.screenName}</Link> learned in this site:
+                        <Link className='highlight' to={"/u/" + this.props.data.user.screenName}>{"@" + this.props.data.user.screenName}</Link> learned in this site:
                       </p>
                       <p className="title" style={{marginTop: 20, marginBottom: 20}}>
                         “{this.props.data.description}”

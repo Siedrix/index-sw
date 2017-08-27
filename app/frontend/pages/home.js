@@ -24,22 +24,23 @@ class Home extends Component {
       return this.setState({err: e})
     }
 
-
     this.setState({
       loaded: true,
       posts: data
     })
   }
 
-
   render () {
     const {posts, loaded, err} = this.state
 
-    const postsEls = (loaded)?
-       posts.data.map(p => {
-        return <Post data={p} />
+    var postsEls
+    if (loaded) {
+      postsEls = posts.data.map(p => {
+        return <Post key={p.uuid} data={p} />
       })
-    :<div>Loading...</div>;
+    } else {
+      postsEls = <div>Loading...</div>
+    }
 
     return (
       <div>
@@ -52,8 +53,6 @@ class Home extends Component {
                   <p className='subtitle'>
                     Share content, and what you learned from it!
                   </p>
-
-
                 </div>
               </div>
             </div>

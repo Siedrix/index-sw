@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 import Post from '~components/post'
+import HeroBanner from '~components/hero-banner'
 
 class UserTagPosts extends Component {
   constructor (props) {
@@ -47,14 +48,13 @@ class UserTagPosts extends Component {
     }
 
     const postsEls = posts.data.map(p => {
-      return <Post data={p}/>
+      return <Post data={p} />
     })
 
     return (
       <div>
+        <HeroBanner title={user.displayName + ' - ' + tagName} subtitle={'@' + user.screenName} />
         <div className='container' style={{marginTop: 40, marginBottom: 100}}>
-          <h1>{user.displayName} - {tagName}</h1>
-          <h2>@{user.screenName}</h2>
           {postsEls}
         </div>
       </div>

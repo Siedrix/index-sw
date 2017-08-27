@@ -44,3 +44,11 @@ body {
   right: 0.5em;
   top: 0.5em;
 }
+
+a.highlight {
+  color: $red
+}
+
+a.highlight:hover {
+  color: darken( $red, 20% )
+}

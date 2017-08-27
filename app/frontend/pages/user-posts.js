@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 import Post from '~components/post'
-import { Link, Redirect } from 'react-router-dom'
+import HeroBanner from '~components/hero-banner'
+import { Link } from 'react-router-dom'
 
 class UserPosts extends Component {
   constructor (props) {
@@ -32,8 +33,6 @@ class UserPosts extends Component {
       user: user,
       posts: data
     })
-
-    //debugger
   }
 
   render () {
@@ -47,43 +46,41 @@ class UserPosts extends Component {
     }
 
     var postsEls
-    if(posts.total > 0){
-      postsEls= posts.data.map(post => {
-       return <Post data={post} />
-     })
+    if (posts.total > 0) {
+      postsEls = posts.data.map(post => {
+        return <Post data={post} />
+      })
     } else {
-     postsEls =
-        <div className="notification is-success">
-          You have no submitted any post yet, start by doing the first one here:
-          <p className='control'>
-            <Link className='bd-tw-button button is-primary' to='/post/create'>Submit Link</Link>
-          </p>
-        </div>
+      postsEls = <div className='notification is-success'>
+        You have no submitted any post yet, start by doing the first one here:
+        <p className='control'>
+          <Link className='bd-tw-button button is-primary' to='/post/create'>Submit Link</Link>
+        </p>
+      </div>
     }
 
     const tagsEls = user.tags.map(tag => {
-      return <small><Link to={'/u/' + user.screenName + "/" + tag.slug} className="button is-light">{tag.name}</Link></small>
+      return <small><Link to={'/u/' + user.screenName + '/' + tag.slug} className='button is-light'>{tag.name}</Link></small>
     })
-
 
     return (
       <div>
-        <strong>{user.displayName}</strong> <small>@{user.screenName} posts:</small>
-        <div className="columns">
-          <div className="column is-one-quarter">
-            <div className="box">
-              <header class="card-header">
-                <p class="card-header-title">
+        <HeroBanner title={user.displayName} subtitle={'@' + user.screenName} />
+        <div className='columns'>
+          <div className='column is-one-quarter'>
+            <div className='box'>
+              <header class='card-header'>
+                <p class='card-header-title'>
                   Tags
                 </p>
               </header>
-              <div className="card-content">
+              <div className='card-content'>
                 {tagsEls}
 
               </div>
             </div>
           </div>
-          <div className="column">
+          <div className='column'>
             {postsEls}
           </div>
         </div>
