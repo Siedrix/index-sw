@@ -45,6 +45,10 @@ class NavBar extends Component {
     var navButtons
     if (this.props.loggedIn) {
       navButtons = (<div className='field is-grouped'>
+        <Link className='navbar-item' to={"/u/" + tree.get("user").screenName}>
+          Post Log
+        </Link>
+
         <p className='control'>
           <Link className='bd-tw-button button is-primary' to='/post/create'>Create Post</Link>
         </p>
@@ -62,16 +66,6 @@ class NavBar extends Component {
         </p>
       </div>)
     }
-
-    var leftNavButtons
-    if (this.props.loggedIn){
-      leftNavButtons = (
-        <Link className='navbar-item' to={"/u/" + tree.get("user").screenName}>
-          Your post
-        </Link>
-      )
-    }
-
 
     return (
       <nav className='navbar'>
@@ -94,7 +88,6 @@ class NavBar extends Component {
             <Link className='navbar-item' to="/tags">
               Tags
             </Link>
-            {leftNavButtons}
           </div>
           <div className='navbar-end'>
             <div className='navbar-item'>
