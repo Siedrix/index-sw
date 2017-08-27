@@ -52,7 +52,7 @@ class PostCreate extends Component {
 
   render () {
     if (this.state.redirectToPost) {
-      return <Redirect to={`/app/p/${this.state.redirectToPost}`} />
+      return <Redirect to={`/u/` + tree.get("user").screenName} />
     }
 
     var loadingElem
