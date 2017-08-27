@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '~core/api'
 import Post from '~components/post'
+import HeroBanner from '~components/hero-banner'
 
 class UserTagPosts extends Component {
   constructor (props) {
@@ -44,9 +45,8 @@ class UserTagPosts extends Component {
 
     return (
       <div>
-
+        <HeroBanner title={tag} />
         <div className='container' style={{marginTop: 40, marginBottom: 100}}>
-          <h1>{tag}</h1>
           {postsEls}
         </div>
       </div>
