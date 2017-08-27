@@ -10,10 +10,10 @@ const schema = {
   type: 'object',
   required: ['email', 'password', 'screenName', 'displayName'],
   properties: {
+    displayName: {type: 'string', title: 'Full Name'},
     email: {type: 'string', title: 'Email'},
     password: {type: 'string', title: 'Password'},
-    screenName: {type: 'string', title: 'User Name'},
-    displayName: {type: 'string', title: 'Full Name'}
+    screenName: {type: 'string', title: 'User Name'}
   }
 }
 
