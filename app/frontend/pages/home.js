@@ -7,7 +7,9 @@ class Home extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      loaded: false
+      loaded: false,
+      loadingMore: false,
+      page: 0
     }
   }
 
@@ -26,18 +28,45 @@ class Home extends Component {
 
     this.setState({
       loaded: true,
-      posts: data
+      posts: data,
+      page: 0
     })
+  }
+
+  async loadMoreHandler () {
+    this.setState({loadingMore: true})
+
+    const morePosts = await api.get('/post', {start: (this.state.page + 1) * 20})
+
+    this.setState({
+      loaded: true,
+      posts: {
+        data: this.state.posts.data.concat(morePosts.data),
+        total: morePosts.total
+      },
+      page: this.state.page + 1
+    })
+
+    this.setState({loadingMore: false})
   }
 
   render () {
     const {posts, loaded, err} = this.state
 
     var postsEls
+    var loadMoreButton
     if (loaded) {
-      postsEls = posts.data.map(p => {
-        return <Post key={p.uuid} data={p} />
+      postsEls = posts.data.map((p, i) => {
+        return <Post key={i} data={p} />
       })
+
+      if (this.state.posts.total <= this.state.posts.data.length) {
+        loadMoreButton = <div />
+      } else if (!this.state.loadingMore) {
+        loadMoreButton = <button className='button is-primary is-fullwidth' onClick={() => this.loadMoreHandler()}>More</button>
+      } else {
+        loadMoreButton = <button className='button is-primary is-fullwidth is-loading' type='submit'>Please be patiente</button>
+      }
     } else {
       postsEls = <div>Loading...</div>
     }
@@ -109,6 +138,7 @@ class Home extends Component {
 
         <div className='container' style={{marginTop: 40, marginBottom: 100}}>
           {postsEls}
+          {loadMoreButton}
         </div>
 
       </div>
