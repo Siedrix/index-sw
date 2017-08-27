@@ -25,6 +25,11 @@ class Post extends Component {
       </Link>
     })
 
+    var editLink
+    if(tree.get("user").uuid === this.props.data.user.uuid){
+      editLink = <Link to={"/app/p/" + this.props.data.uuid}><i className="fa fa-pencil"/></Link>
+    }
+
     return <div className='box'>
           <article className='media'>
             <div className='media-left'>
@@ -77,6 +82,7 @@ class Post extends Component {
                   <a className="level-item">
                     <span className="icon is-medium"><i className="fa fa-ellipsis-h"></i></span>
                   </a>
+                  {editLink}
                 </div>
               </nav>
             </div>

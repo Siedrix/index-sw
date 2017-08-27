@@ -19,7 +19,7 @@ const UserProfile = (props) => {
   return (
     <div>
       <HeroBanner title={props.data.user.displayName} subtitle={'@' + props.data.user.screenName} />
-      <div className='columns'>
+      <div className='columns' style={{margin: 40}}>
         <div className='column is-one-quarter'>
           <div className='box'>
             <header className='card-header'>
