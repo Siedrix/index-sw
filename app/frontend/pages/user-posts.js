@@ -1,8 +1,67 @@
 import React, { Component } from 'react'
+import { branch } from 'baobab-react/higher-order'
+import { Link } from 'react-router-dom'
+
 import api from '~core/api'
 import Post from '~components/post'
 import HeroBanner from '~components/hero-banner'
-import { Link } from 'react-router-dom'
+
+
+const UserProfile = (props) => {
+  const postsEls = props.data.posts.data.map(post => {
+    return <Post data={post} />
+  })
+
+  const tagsEls = props.data.user.tags.map(tag => {
+    return <small><Link to={'/u/' + props.data.user.screenName + '/' + tag.slug} className='button is-light'>{tag.name}</Link></small>
+  })
+
+  return (
+    <div>
+      <HeroBanner title={props.data.user.displayName} subtitle={'@' + props.data.user.screenName} />
+      <div className='columns'>
+        <div className='column is-one-quarter'>
+          <div className='box'>
+            <header className='card-header'>
+              <p className='card-header-title'>
+                Tags
+              </p>
+            </header>
+            <div className='card-content'>
+              {tagsEls}
+            </div>
+          </div>
+        </div>
+        <div className='column'>
+          {postsEls}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const EmptyUserProfile = (props) => {
+  return (
+    <div className="has-text-centered">
+      <HeroBanner title={props.data.user.displayName} subtitle={'@' + props.data.user.screenName} />
+      <div className='notification is-success'>
+       {props.data.user.displayName} Has nos created any post yet.
+     </div>
+    </div>
+  )
+}
+
+const EmptyOwnProfile = (props) => {
+  return (
+    <div className='notification is-success has-text-centered'>
+     You haven´t submitted any post yet, start by doing the first one here:
+     <p className='control has-text-centered'>
+       <Link className='bd-tw-button button is-primary' to='/post/create'>Submit Link</Link>
+     </p>
+   </div>
+  )
+}
+
 
 class UserPosts extends Component {
   constructor (props) {
@@ -45,48 +104,20 @@ class UserPosts extends Component {
       return (<div>{err.message}</div>)
     }
 
-    var postsEls
-    if (posts.total > 0) {
-      postsEls = posts.data.map(post => {
-        return <Post data={post} />
-      })
+
+    console.log(user)
+    console.log(tree.get("user"))
+
+    if(posts.total > 0){
+      return <UserProfile data={{user:user, posts:posts}}/>
+    } else if(this.props.loggedIn && user.uuid === tree.get("user").uuid) {
+      return <EmptyOwnProfile data={{user:user}}/>
     } else {
-      postsEls = <div className='notification is-success'>
-        You have no submitted any post yet, start by doing the first one here:
-        <p className='control'>
-          <Link className='bd-tw-button button is-primary' to='/post/create'>Submit Link</Link>
-        </p>
-      </div>
+      return <EmptyUserProfile data={{user:user}}/>
     }
-
-    const tagsEls = user.tags.map(tag => {
-      return <small><Link to={'/u/' + user.screenName + '/' + tag.slug} className='button is-light'>{tag.name}</Link></small>
-    })
-
-    return (
-      <div>
-        <HeroBanner title={user.displayName} subtitle={'@' + user.screenName} />
-        <div className='columns'>
-          <div className='column is-one-quarter'>
-            <div className='box'>
-              <header class='card-header'>
-                <p class='card-header-title'>
-                  Tags
-                </p>
-              </header>
-              <div className='card-content'>
-                {tagsEls}
-
-              </div>
-            </div>
-          </div>
-          <div className='column'>
-            {postsEls}
-          </div>
-        </div>
-      </div>
-    )
   }
 }
 
-export default UserPosts
+export default branch({
+  loggedIn: 'loggedIn'
+}, UserPosts)

@@ -58,7 +58,7 @@ class PostCreate extends Component {
     var loadingElem
     if(this.state.loading){
       loadingElem = (<span><button className='button is-primary is-fullwidth is-loading' type='submit'>Please be patiente</button><div className="notification is-warning">
-       We are building this at the moment and creating a new post will take 20-30 seconds for the moment, please be patiente
+       We are building <strong>INDDEX</strong> at this very moment. Creating a new post will take 20-30 seconds. Thank you for your patience.
       </div></span>)
     } else {
       loadingElem = <button className='button is-primary is-fullwidth' type='submit'>Submit</button>
