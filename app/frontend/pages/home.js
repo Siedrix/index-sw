@@ -59,7 +59,7 @@ class Home extends Component {
           </div>
         </section>
 
-        <section className="hero is-primary">
+        <section className="hero">
           <div className="hero-body">
             <div className="container">
               <nav className="columns">

@@ -46,9 +46,9 @@ body {
 }
 
 a.highlight {
-  color: $red
+  color: $green
 }
 
 a.highlight:hover {
-  color: darken( $red, 20% )
+  color: darken( $green, 20% )
 }
