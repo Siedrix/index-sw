@@ -1,17 +1,30 @@
-const {Tag} = require('models')
+const _ = require('lodash')
+
+const {Post} = require('models')
 
 module.exports = {
   method: 'get',
   path: '/',
   handler: async function (ctx) {
-    const query = {}
+    const posts = await Post.find().select('tags').populate('tags')
 
-    var tags = await Tag.dataTables({
-      limit: ctx.request.query.limit || 20,
-      skip: ctx.request.query.start,
-      find: query
+    const tags = {}
+    posts.forEach(post => {
+      post.tags.forEach(tag => {
+        if (!tags[tag.slug]) {
+          tags[tag.slug] = {}
+          tags[tag.slug].name = tag.name
+          tags[tag.slug].slug = tag.slug
+          tags[tag.slug].count = 0
+        }
+
+        tags[tag.slug].count++
+      })
     })
 
-    ctx.body = tags
+    ctx.body = _.chain(tags)
+      .values()
+      .sortBy(t => t.count * -1)
+      .value()
   }
 }
