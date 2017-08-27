@@ -54,6 +54,10 @@ class PostSingle extends Component {
     formData.tags = formData.tags.split(',')
 
     await api.put('/post/' + uuid, formData)
+    this.setState({
+      redirectToUser: true
+    })
+
   }
 
   async deleteHandler () {
@@ -73,6 +77,10 @@ class PostSingle extends Component {
 
     if (this.state.redirectToHome) {
       return <Redirect to='/' />
+    }
+
+    if (this.state.redirectToUser) {
+      return <Redirect to={`/u/` + tree.get("user").screenName} />
     }
 
     const baseData = {
