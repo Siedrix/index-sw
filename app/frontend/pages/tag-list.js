@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 import api from '~core/api'
 import Post from '~components/post'
@@ -37,10 +38,13 @@ class TagList extends Component {
     if (!this.state.loaded) {
       return <div>Loading...</div>
     }
-    const tagsEls = this.state.tags.data.map(t => {
-        return <a href={"/t/" + t.slug}>
-          {t.name},
-        </a>
+    const tagsEls = this.state.tags.map(t => {
+      return <Link to={'/t/' + t.slug} className='tags has-addons' style={{display: 'inline', padding: 10}}>
+        <span className='tag'>
+          {t.name}
+          <span className='badge'>{t.count}</span>
+        </span>
+      </Link>
     })
 
     return (
