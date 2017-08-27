@@ -55,6 +55,7 @@ class FooterBar extends Component {
             </div>
             <div className="column is-4">
               <div id="sister">
+                <img src="/public/slogan.png"/>
               </div>
             </div>
           </div>

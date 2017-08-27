@@ -55,7 +55,7 @@ const EmptyOwnProfile = (props) => {
   return (
     <div className='notification is-success has-text-centered'>
      You haven´t submitted any post yet, start by doing the first one here:
-     <p className='control has-text-centered'>
+     <p className='control has-text-centered' style={{marginTop : 20}}>
        <Link className='bd-tw-button button' to='/post/create'>Submit Link</Link>
      </p>
    </div>
