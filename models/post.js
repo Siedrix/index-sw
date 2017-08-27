@@ -12,6 +12,7 @@ const postSchema = new Schema({
   tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
   uuid: {type: String, default: v4},
   deleted: {type: Boolean, default: false}
+  //total_likes: {type: Number, default: 0}
 })
 
 postSchema.methods.format = function () {

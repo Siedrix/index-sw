@@ -1,20 +1,58 @@
 import React, { Component } from 'react'
+import api from '~core/api'
 import { Link } from 'react-router-dom'
+import { StickyContainer, Sticky } from 'react-sticky';
 import moment from 'moment'
 moment.locale('en');
+
+let i = 0;
+class Header extends Component {
+  render() {
+    return (
+      <div style={{ ...this.props.style, overflow: 'auto'}}>
+        <p>
+          <a className="button is-light">Close</a>
+        </p>
+      </div>
+    );
+  }
+}
 
 class Post extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      isToggleOn: !this.props.open
+      isToggleOn: !this.props.open,
+      like: !this.props.open
     }
   }
 
   handleClick () {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
+    }))
+  }
+
+  async createPostLike () {
+
+    var data
+    try {
+      data = await api.post('/', {'post': this.props.data})
+    } catch (e) {
+      this.setState({error: e.message})
+    }
+    debugger
+    this.setState({
+      likeMade: data.uuid
+    })
+  }
+
+  likeClick () {
+    const postLike = this.createPostLike()
+    if(postLike)
+    this.setState(prevState => ({
+      like: !prevState.like
     }))
   }
 
@@ -31,6 +69,20 @@ class Post extends Component {
               <figure className='image is-64x64'>
                 { this.props.data.siteIcon && <img src={this.props.data.siteIcon} alt='Image' />}
               </figure>
+              <StickyContainer style={{ height: '500px', margin:'0px'}} className={this.state.isToggleOn ? '' : 'hero is-success is-fullheight'} >
+                <Sticky>
+                  {
+                    ({ isSticky, wasSticky, style, distanceFromTop, distanceFromBottom, calculatedHeight }) => {
+                      console.log({ isSticky, wasSticky, style, distanceFromTop, distanceFromBottom, calculatedHeight });
+                      return <div style={{ ...style, overflow: 'auto'}} >
+                                <p>
+                                  <a onClick={() => this.handleClick()} className={this.state.isToggleOn ? 'button is-light hide-sticky' : 'button is-light show-sticky'}>Close</a>
+                                </p>
+                              </div>
+                    }
+                  }
+                </Sticky>
+              </StickyContainer>
             </div>
             <div className='media-content'>
               <div className='content'>
@@ -61,7 +113,7 @@ class Post extends Component {
                 </p>
               </div>
               <div>
-                <a className="button" onClick={() => this.handleClick()}>{this.state.isToggleOn ? 'More...' : 'Less...'}</a>
+                <a className="button" onClick={() => this.handleClick()} className={this.state.isToggleOn ? 'show-sticky' : 'hide-sticky'}>{this.state.isToggleOn ? 'More...' : 'Less...'}</a>
               </div>
               <nav className="level is-mobile">
                 <div className="level-left">
@@ -69,13 +121,13 @@ class Post extends Component {
                 </div>
                 <div className="level-right">
                   <a className="level-item">
-                    <span className="icon is-medium"><i className="fa fa-reply"></i></span>
+                    <span className="icon is-medium tooltip" data-tooltip="Share your learning"><i className="fa fa-reply"></i></span>
+                  </a>
+                  <a onClick={() => this.likeClick()} className={this.state.like ? 'tooltip' : 'level-item islike tooltip'}  data-tooltip="Like this">
+                    <span className="icon is-medium badge" data-badge="8"><i className="fa fa-heart"></i></span>
                   </a>
                   <a className="level-item">
-                    <span className="icon is-medium"><i className="fa fa-heart"></i></span>
-                  </a>
-                  <a className="level-item">
-                    <span className="icon is-medium"><i className="fa fa-ellipsis-h"></i></span>
+                    <span className="icon is-medium tooltip" data-tooltip="Report Content"><i className="fa fa-ellipsis-h"></i></span>
                   </a>
                 </div>
               </nav>

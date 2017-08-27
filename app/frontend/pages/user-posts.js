@@ -74,7 +74,7 @@ class UserPosts extends Component {
                   Tags
                 </p>
               </header>
-              <div className='card-content'>
+              <div className='tags'>
                 {tagsEls}
 
               </div>
