@@ -82,9 +82,6 @@ class NavBar extends Component {
         </div>
         <div className={navbarMenuClassName}>
           <div className='navbar-start'>
-            <Link className='navbar-item' to='/about'>
-              About
-            </Link>
             <Link className='navbar-item' to="/tags">
               Tags
             </Link>
