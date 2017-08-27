@@ -15,6 +15,16 @@ class UserTagPosts extends Component {
     this.load()
   }
 
+  componentWillReceiveProps () {
+    this.setState({
+      loaded: false
+    })
+
+    setTimeout(() => {
+      this.load()
+    }, 10)
+  }
+
   async load () {
     const tag = this.props.match.params.tagname
 
@@ -40,7 +50,7 @@ class UserTagPosts extends Component {
     }
 
     const postsEls = posts.data.map(p => {
-      return <Post data={p}/>
+      return <Post data={p} />
     })
 
     return (

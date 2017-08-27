@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { branch } from 'baobab-react/higher-order'
 import { Link } from 'react-router-dom'
 
+import tree from '~core/tree'
 import api from '~core/api'
 import Post from '~components/post'
 import HeroBanner from '~components/hero-banner'
-
 
 const UserProfile = (props) => {
   const postsEls = props.data.posts.data.map(post => {
@@ -42,10 +42,10 @@ const UserProfile = (props) => {
 
 const EmptyUserProfile = (props) => {
   return (
-    <div className="has-text-centered">
+    <div className='has-text-centered'>
       <HeroBanner title={props.data.user.displayName} subtitle={'@' + props.data.user.screenName} />
       <div className='notification is-success'>
-       {props.data.user.displayName} Has nos created any post yet.
+        {props.data.user.displayName} Has nos created any post yet.
      </div>
     </div>
   )
@@ -54,14 +54,13 @@ const EmptyUserProfile = (props) => {
 const EmptyOwnProfile = (props) => {
   return (
     <div className='notification is-success has-text-centered'>
-     You haven´t submitted any post yet, start by doing the first one here:
-     <p className='control has-text-centered' style={{marginTop : 20}}>
-       <Link className='bd-tw-button button' to='/post/create'>Submit Link</Link>
-     </p>
-   </div>
+      You haven´t submitted any post yet, start by doing the first one here:
+      <p className='control has-text-centered' style={{marginTop: 20}}>
+        <Link className='bd-tw-button button' to='/post/create'>Submit Link</Link>
+      </p>
+    </div>
   )
 }
-
 
 class UserPosts extends Component {
   constructor (props) {
@@ -73,6 +72,16 @@ class UserPosts extends Component {
 
   componentWillMount () {
     this.load()
+  }
+
+  componentWillReceiveProps () {
+    this.setState({
+      loaded: false
+    })
+
+    setTimeout(() => {
+      this.load()
+    }, 10)
   }
 
   async load () {
@@ -104,16 +113,12 @@ class UserPosts extends Component {
       return (<div>{err.message}</div>)
     }
 
-
-    console.log(user)
-    console.log(tree.get("user"))
-
-    if(posts.total > 0){
-      return <UserProfile data={{user:user, posts:posts}}/>
-    } else if(this.props.loggedIn && user.uuid === tree.get("user").uuid) {
-      return <EmptyOwnProfile data={{user:user}}/>
+    if (posts.total > 0) {
+      return <UserProfile data={{user: user, posts: posts}} />
+    } else if (this.props.loggedIn && user.uuid === tree.get('user').uuid) {
+      return <EmptyOwnProfile data={{user: user}} />
     } else {
-      return <EmptyUserProfile data={{user:user}}/>
+      return <EmptyUserProfile data={{user: user}} />
     }
   }
 }

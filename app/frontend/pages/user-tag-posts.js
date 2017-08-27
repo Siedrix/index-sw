@@ -15,6 +15,16 @@ class UserTagPosts extends Component {
     this.load()
   }
 
+  componentWillReceiveProps () {
+    this.setState({
+      loaded: false
+    })
+
+    setTimeout(() => {
+      this.load()
+    }, 10)
+  }
+
   async load () {
     const username = this.props.match.params.username
     const tagName = this.props.match.params.tagname
